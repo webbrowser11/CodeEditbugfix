@@ -99,16 +99,26 @@ extension SettingsData {
             let container = try decoder.container(keyedBy: CodingKeys.self)
             self.selectedDarkTheme = try container.decodeIfPresent(
                 String.self, forKey: .selectedDarkTheme
-            ) ?? selectedDarkTheme
+            ) ?? self.selectedDarkTheme
             self.selectedLightTheme = try container.decodeIfPresent(
                 String.self, forKey: .selectedLightTheme
-            ) ?? selectedLightTheme
+            ) ?? self.selectedLightTheme
             self.selectedTheme = try container.decodeIfPresent(String.self, forKey: .selectedTheme)
             self.useThemeBackground = try container.decodeIfPresent(Bool.self, forKey: .useThemeBackground) ?? true
             self.matchAppearance = try container.decodeIfPresent(
                 Bool.self, forKey: .matchAppearance
             ) ?? true
             self.overrides = try container.decodeIfPresent([String: ThemeOverrides].self, forKey: .overrides) ?? [:]
+        }
+
+        /// Coding keys for encoding and decoding
+        private enum CodingKeys: String, CodingKey {
+            case selectedDarkTheme
+            case selectedLightTheme
+            case selectedTheme
+            case useThemeBackground
+            case matchAppearance
+            case overrides
         }
     }
 }
